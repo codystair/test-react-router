@@ -26,10 +26,12 @@ jobs:
         run: exit 1
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Fix npm 1
+        run: npm cache clean --force
+      - name: Fix npm 2
+        run: rm -rf node_modules package-lock.json
       - name: Setup React
         run: npm install
-      - name: Fix npm
-        run: npm update
       - name: Set Hompage
         run: |
           sed -i -e '/^{$/a\' -e '"homepage": "placeholder",' package.json
