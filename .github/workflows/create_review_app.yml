@@ -14,6 +14,7 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref }}
       SOURCE_DIR: "build"
       DEST_DIR: ${{ github.head_ref }}/${{ github.sha }}
+      CI: false
     steps:
       - name: Missing AWS Credentials
         if: ${{ !env.AWS_SECRET_ACCESS_KEY || !env.AWS_ACCESS_KEY_ID }}
@@ -26,10 +27,6 @@ jobs:
         run: exit 1
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Fix npm 1
-        run: npm cache clean --force
-      - name: Fix npm 2
-        run: rm -rf node_modules package-lock.json
       - name: Setup React
         run: npm install
       - name: Set Hompage
